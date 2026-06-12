@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>VIRTUS_MEDIA_TECHNICAL_OVERVIEW :: NealOS</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="NealOS"/><meta property="og:title" content="VIRTUS_MEDIA_TECHNICAL_OVERVIEW :: NealOS"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="VIRTUS_MEDIA_TECHNICAL_OVERVIEW :: NealOS"/><meta name="twitter:description" content="Virtus Media Platform — Technical Overview Audience: Senior developer evaluating project takeover Scope: Product context, architecture, workflows, risks, and first-steps checklist Not included: Credentials, secrets, private access details, admin passwords, or clone instructions 1."/><meta property="og:description" content="Virtus Media Platform — Technical Overview Audience: Senior developer evaluating project takeover Scope: Product context, architecture, workflows, risks, and first-steps checklist Not included: Credentials, secrets, private access details, admin passwords, or clone instructions 1."/><meta property="og:image:alt" content="Virtus Media Platform — Technical Overview Audience: Senior developer evaluating project takeover Scope: Product context, architecture, workflows, risks, and first-steps checklist Not included: Credentials, secrets, private access details, admin passwords, or clone instructions 1."/><meta property="twitter:domain" content="nealos.hamiltonrevenue.com"/><meta property="og:url" content="https://nealos.hamiltonrevenue.com/VIRTUS_MEDIA_TECHNICAL_OVERVIEW"/><meta property="twitter:url" content="https://nealos.hamiltonrevenue.com/VIRTUS_MEDIA_TECHNICAL_OVERVIEW"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="Virtus Media Platform — Technical Overview Audience: Senior developer evaluating project takeover Scope: Product context, architecture, workflows, risks, and first-steps checklist Not included: Credentials, secrets, private access details, admin passwords, or clone instructions 1."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" spa-preserve/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  padding: 2rem;
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL25lYWwvcXVhcnR6LXY0L3F1YXJ0ei9jb21wb25lbnRzL3N0eWxlcyIsInNvdXJjZXMiOlsibWVybWFpZC5pbmxpbmUuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTs7O0FBS0Y7RUFDRTtFQUNBOzs7QUFJSjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTtFQUNBOztBQUdGO0VBQ0U7RUFDQTs7QUFJSjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTs7QUFJRjtFQUNFO0VBQ0E7RUFDQSIsInNvdXJjZXNDb250ZW50IjpbIi5leHBhbmQtYnV0dG9uIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbG9hdDogcmlnaHQ7XG4gIHBhZGRpbmc6IDAuNHJlbTtcbiAgbWFyZ2luOiAwLjNyZW07XG4gIHJpZ2h0OiAwOyAvLyBOT1RFOiByaWdodCB3aWxsIGJlIHNldCBpbiBtZXJtYWlkLmlubGluZS50c1xuICBjb2xvcjogdmFyKC0tZ3JheSk7XG4gIGJvcmRlci1jb2xvcjogdmFyKC0tZGFyayk7XG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgYm9yZGVyOiAxcHggc29saWQ7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgb3BhY2l0eTogMDtcbiAgdHJhbnNpdGlvbjogMC4ycztcblxuICAmID4gc3ZnIHtcbiAgICBmaWxsOiB2YXIoLS1saWdodCk7XG4gICAgZmlsdGVyOiBjb250cmFzdCgwLjMpO1xuICB9XG5cbiAgJjpob3ZlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIGJvcmRlci1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5KTtcbiAgfVxuXG4gICY6Zm9jdXMge1xuICAgIG91dGxpbmU6IDA7XG4gIH1cbn1cblxucHJlIHtcbiAgJjpob3ZlciA+IC5leHBhbmQtYnV0dG9uIHtcbiAgICBvcGFjaXR5OiAxO1xuICAgIHRyYW5zaXRpb246IDAuMnM7XG4gIH1cbn1cblxuI21lcm1haWQtY29udGFpbmVyIHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBjb250YWluOiBsYXlvdXQ7XG4gIHotaW5kZXg6IDk5OTtcbiAgbGVmdDogMDtcbiAgdG9wOiAwO1xuICB3aWR0aDogMTAwdnc7XG4gIGhlaWdodDogMTAwdmg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGRpc3BsYXk6IG5vbmU7XG4gIGJhY2tkcm9wLWZpbHRlcjogYmx1cig0cHgpO1xuICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuNSk7XG5cbiAgJi5hY3RpdmUge1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgfVxuXG4gICYgPiAjbWVybWFpZC1zcGFjZSB7XG4gICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gICAgYm9yZGVyLXJhZGl1czogNXB4O1xuICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICB0b3A6IDUwJTtcbiAgICBsZWZ0OiA1MCU7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG4gICAgaGVpZ2h0OiA4MHZoO1xuICAgIHdpZHRoOiA4MHZ3O1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG5cbiAgICAmID4gLm1lcm1haWQtY29udGVudCB7XG4gICAgICBwYWRkaW5nOiAycmVtO1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgdHJhbnNmb3JtLW9yaWdpbjogMCAwO1xuICAgICAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuMXMgZWFzZTtcbiAgICAgIG92ZXJmbG93OiB2aXNpYmxlO1xuICAgICAgbWluLWhlaWdodDogMjAwcHg7XG4gICAgICBtaW4td2lkdGg6IDIwMHB4O1xuXG4gICAgICBwcmUge1xuICAgICAgICBtYXJnaW46IDA7XG4gICAgICAgIGJvcmRlcjogbm9uZTtcbiAgICAgIH1cblxuICAgICAgc3ZnIHtcbiAgICAgICAgbWF4LXdpZHRoOiBub25lO1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICB9XG4gICAgfVxuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRyb2xzIHtcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgIGJvdHRvbTogMjBweDtcbiAgICAgIHJpZ2h0OiAyMHB4O1xuICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgIGdhcDogOHB4O1xuICAgICAgcGFkZGluZzogOHB4O1xuICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgIGJvcmRlci1yYWRpdXM6IDZweDtcbiAgICAgIGJveC1zaGFkb3c6IDAgMnB4IDRweCByZ2JhKDAsIDAsIDAsIDAuMSk7XG4gICAgICB6LWluZGV4OiAyO1xuXG4gICAgICAubWVybWFpZC1jb250cm9sLWJ1dHRvbiB7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgICAgICB3aWR0aDogMzJweDtcbiAgICAgICAgaGVpZ2h0OiAzMnB4O1xuICAgICAgICBwYWRkaW5nOiAwO1xuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodCk7XG4gICAgICAgIGNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4O1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgICAgZm9udC1mYW1pbHk6IHZhcigtLWJvZHlGb250KTtcbiAgICAgICAgdHJhbnNpdGlvbjogYWxsIDAuMnMgZWFzZTtcblxuICAgICAgICAmOmhvdmVyIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICB9XG5cbiAgICAgICAgJjphY3RpdmUge1xuICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgxcHgpO1xuICAgICAgICB9XG5cbiAgICAgICAgLy8gU3R5bGUgdGhlIHJlc2V0IGJ1dHRvbiBkaWZmZXJlbnRseVxuICAgICAgICAmOm50aC1jaGlsZCgyKSB7XG4gICAgICAgICAgd2lkdGg6IGF1dG87XG4gICAgICAgICAgcGFkZGluZzogMCAxMnB4O1xuICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxufVxuIl19 */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="./prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://nealos.hamiltonrevenue.com/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://nealos.hamiltonrevenue.com/VIRTUS_MEDIA_TECHNICAL_OVERVIEW-og-image.webp"/><meta property="og:image:url" content="https://nealos.hamiltonrevenue.com/VIRTUS_MEDIA_TECHNICAL_OVERVIEW-og-image.webp"/><meta name="twitter:image" content="https://nealos.hamiltonrevenue.com/VIRTUS_MEDIA_TECHNICAL_OVERVIEW-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="VIRTUS_MEDIA_TECHNICAL_OVERVIEW"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">NealOS</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-13"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-13" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="./">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>VIRTUS_MEDIA_TECHNICAL_OVERVIEW</a></div></nav><h1 class="article-title">VIRTUS_MEDIA_TECHNICAL_OVERVIEW</h1><p show-comma="true" class="content-meta"><time datetime="2026-06-12T17:21:34.000Z">Jun 12, 2026</time><span>18 min read</span></p></div></div><article class="popover-hint"><h1 id="virtus-media-platform--technical-overview">Virtus Media Platform — Technical Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#virtus-media-platform--technical-overview" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Audience:</strong> Senior developer evaluating project takeover
+<strong>Scope:</strong> Product context, architecture, workflows, risks, and first-steps checklist
+<strong>Not included:</strong> Credentials, secrets, private access details, admin passwords, or clone instructions</p>
+<hr/>
+<h2 id="1-purpose">1. Purpose<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-purpose" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This document gives a senior developer enough product, architecture, workflow, and operational context to evaluate whether they can take over development and begin shipping features quickly if engaged.</p>
+<p>It does not include credentials, private system access details, or sensitive deployment secrets.</p>
+<hr/>
+<h2 id="2-product-summary">2. Product Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-product-summary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Virtus Media is an <strong>investor relations (IR) campaign management platform</strong>. It supports managed media campaigns between:</p>
+<ul>
+<li><strong>Clients:</strong> Public companies / IR teams</li>
+<li><strong>Distribution partners:</strong> Creators (influencers), publishers, and UGC/media agencies</li>
+</ul>
+<p>Virtus Media Group is the <strong>operational middle layer</strong> — closing deals, creating campaigns, assigning work, reviewing submitted performance data, generating reports, and delivering those reports to clients.</p>
+<p>The current product is <strong>~50% software, ~50% professional service</strong>. Admins are the operational center.</p>
+<hr/>
+<h2 id="3-operating-model">3. Operating Model<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-operating-model" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="what-this-platform-is">What This Platform Is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-this-platform-is" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Managed-service campaign operations software</li>
+<li>Internal admin tooling for Virtus Media Group</li>
+<li>Campaign coordination system for companies, creators, and agencies</li>
+<li>Reporting and performance-management layer</li>
+<li>Purpose-built for high-touch IR media campaigns sold and managed by Virtus</li>
+</ul>
+<h3 id="what-this-platform-is-not-current-phase">What This Platform Is Not (Current Phase)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-this-platform-is-not-current-phase" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Not a self-serve affiliate marketplace</li>
+<li>Not a system where companies post campaigns for creators to browse</li>
+<li>Not a system where creators freely claim available campaigns</li>
+<li>Not designed to remove Virtus from the transaction</li>
+<li>Not currently dependent on automated social API reporting</li>
+<li>Not intended to expose direct company-to-creator relationships that bypass Virtus</li>
+</ul>
+<hr/>
+<h2 id="4-current-managed-service-rationale">4. Current Managed-Service Rationale<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-current-managed-service-rationale" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Campaigns are typically <strong>$50,000+</strong>, often six figures or larger. These are high-value, relationship-driven engagements.</p>
+<p>Virtus must remain the managed-service layer between IR clients and the creator/publisher/agency supply side. The platform should prevent companies from using it to discover and directly contact creators or publishers — this is <strong>by design</strong>, protecting Virtus’s business model from client leakage.</p>
+<hr/>
+<h2 id="5-future-marketplace--affiliate-style-artifacts">5. Future Marketplace / Affiliate-Style Artifacts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-future-marketplace--affiliate-style-artifacts" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote>
+<p><strong>Important:</strong> Codebase artifacts for a possible future marketplace phase exist. They do not represent the current operating model.</p>
+</blockquote>
+<p>The codebase contains routes, components, and API endpoints that suggest a future state where the platform behaves more like an affiliate marketplace:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Artifact</th><th>Location</th><th>Notes</th></tr></thead><tbody><tr><td><code>campaigns/available</code> page</td><td><code>/dashboard/[tenant]/(virtus)/campaigns/available/</code></td><td>Browse/apply UI for influencers</td></tr><tr><td><code>POST /api/campaigns/[id]/apply</code></td><td><code>/app/api/campaigns/[id]/apply/</code></td><td>Influencer self-application to campaigns</td></tr><tr><td><code>approve-application</code> / <code>reject-application</code></td><td><code>/app/api/campaigns/[id]/</code></td><td>Admin approval flow for applications</td></tr><tr><td>Connections system</td><td><code>/collections/connections/</code></td><td>Bilateral influencer-company relationship records</td></tr><tr><td>Register page</td><td><code>/app/(app)/register/</code></td><td>Self-service registration route</td></tr></tbody></table></div>
+<p>These features may be partially built, present in the route tree, linked in parts of the UI, accessible in staging, or reachable under some authenticated role conditions. Runtime access should be verified. They should be <strong>audited to confirm they do not expose company-to-creator discovery or self-serve workflows</strong> that contradict the current managed-service model.</p>
+<hr/>
+<h2 id="6-future-marketplace-business-hypothesis">6. Future Marketplace Business Hypothesis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-future-marketplace-business-hypothesis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The affiliate-style marketplace use case is <strong>not yet proven</strong> for this market.</p>
+<p>If it becomes applicable, it would likely target:</p>
+<ul>
+<li>Low-budget campaigns (~$5,000)</li>
+<li>Smaller influencers/publishers willing to accept lower-touch work</li>
+<li>Campaigns that don’t justify Virtus admin time at the same level as core managed campaigns</li>
+</ul>
+<p>A developer taking over should distinguish between:</p>
+<ol>
+<li><strong>Current managed-service workflows</strong> — must work reliably now</li>
+<li><strong>Hidden/partial marketplace artifacts</strong> — should not leak into current UX</li>
+<li><strong>Future-phase experiments</strong> — may need to be removed, completed, or feature-flagged</li>
+</ol>
+<hr/>
+<h2 id="7-tenant--user-types">7. Tenant / User Types<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-tenant--user-types" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Type</th><th>Role Value</th><th>Summary</th></tr></thead><tbody><tr><td>Virtus Super Admin</td><td><code>super-admin</code> (global)</td><td>Full platform access; creates tenants, manages all data</td></tr><tr><td>Tenant Admin</td><td><code>tenant-admin</code></td><td>Admins within a tenant (e.g., Virtus operator for a client workspace)</td></tr><tr><td>Campaign Manager</td><td><code>campaign-manager</code></td><td>Creates/manages campaigns within their tenant</td></tr><tr><td>Company / IR Client</td><td><code>client</code></td><td>Views timelines and receives campaign reports</td></tr><tr><td>Individual Creator</td><td><code>influencer</code></td><td>Accepts assigned campaigns, submits metrics, receives direct payment</td></tr><tr><td>UGC / Media Agency</td><td><code>tenant</code> with <code>isAgency: true</code></td><td>Manages creator accounts, accepts campaigns, receives agency-level payout</td></tr><tr><td>Agency-Managed Creator</td><td><code>influencer</code> under agency</td><td>Executes work; paid by agency outside the platform</td></tr></tbody></table></div>
+<p><strong>Tenant flags:</strong> Each Tenant record has boolean flags — <code>isCompany</code>, <code>isInfluencer</code>, <code>isAgency</code> — to identify its type. Agencies can <code>managedBy</code> another tenant (their managing agency).</p>
+<hr/>
+<h2 id="8-core-workflow">8. Core Workflow<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-core-workflow" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>Virtus sales closes a deal with a company <strong>outside the platform</strong></li>
+<li>Deal defines budget, scope, deliverables, and timeline</li>
+<li><strong>Virtus admin creates the campaign</strong> in the platform (<code>status: pending_payment</code>)</li>
+<li>Company payment to Virtus is confirmed outside the current platform flow; an admin/system update moves the campaign toward <code>status: available</code></li>
+<li>Admin assigns or invites individual creators and/or agencies (<code>Collaboration</code> record created)</li>
+<li>Creators/agencies accept the collaboration (<code>status: accepted → in-progress</code>)</li>
+<li>Work is executed externally (social posts, newsletters, publisher placements, etc.)</li>
+<li>Creators/agencies manually submit <code>CampaignDeliverable</code> records with URLs and metrics</li>
+<li>System auto-advances collaboration status based on deliverable completion</li>
+<li>Admin reviews and verifies metrics</li>
+<li>Admin generates a client-facing performance report</li>
+<li>Company views or receives the report through the platform</li>
+<li>Funds are released to creators/agencies (dual approval: influencer + admin)</li>
+</ol>
+<hr/>
+<h2 id="9-current-phase-constraints">9. Current Phase Constraints<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-current-phase-constraints" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Companies do <strong>not</strong> create campaigns directly</li>
+<li>Companies do <strong>not</strong> interact directly with creators or agencies</li>
+<li>Creators do <strong>not</strong> browse a marketplace of available company campaigns</li>
+<li>Agencies manage creators within their own account</li>
+<li>Performance metrics are <strong>manually entered</strong> — no social API automation</li>
+<li>Company billing (Virtus’s invoice to the IR client) is handled <strong>outside the platform</strong></li>
+<li>All campaign creation, assignment, review, and reporting is <strong>admin-controlled</strong></li>
+<li>Future marketplace features should remain disabled, hidden, or clearly separated</li>
+</ul>
+<hr/>
+<h2 id="10-architecture-overview">10. Architecture Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-architecture-overview" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Layer</th><th>Technology</th></tr></thead><tbody><tr><td><strong>Frontend</strong></td><td>Next.js 15 (App Router), React 19, Tailwind CSS v4, shadcn/ui (Radix UI)</td></tr><tr><td><strong>Backend / CMS</strong></td><td>Payload CMS 3.67 (headless, Payload admin panel <strong>disabled</strong>)</td></tr><tr><td><strong>Database</strong></td><td>Vercel Postgres (Drizzle ORM, UUID PKs) — previously MongoDB (commented out)</td></tr><tr><td><strong>Auth</strong></td><td>Payload built-in (cookie-based JWT, 48h token expiration, 5 login attempt lockout)</td></tr><tr><td><strong>Multi-tenancy</strong></td><td><code>@payloadcms/plugin-multi-tenant</code> — tenant-scoped collections</td></tr><tr><td><strong>Storage</strong></td><td>Vercel Blob Storage (private; custom adapter for media uploads)</td></tr><tr><td><strong>Email</strong></td><td>SendGrid (via nodemailer-sendgrid); Brevo SDK also present</td></tr><tr><td><strong>Payments</strong></td><td>Stripe Connect (creator/agency payouts); Stripe Checkout code paths exist and should be verified against the current external company-billing model</td></tr><tr><td><strong>KYC / Tax Docs</strong></td><td>Azure AI Document Intelligence (W-9 / W-8BEN parsing)</td></tr><tr><td><strong>AI</strong></td><td>OpenAI SDK present (likely analytics/report generation — scope TBD)</td></tr><tr><td><strong>Testing</strong></td><td>Vitest (unit); analytics/calculator test scripts; no apparent e2e suite</td></tr><tr><td><strong>Deployment</strong></td><td>Vercel (inferred from all Vercel adapters and Cron job support)</td></tr><tr><td><strong>Package manager</strong></td><td>pnpm</td></tr><tr><td><strong>Build tool</strong></td><td>Turbopack (dev), Next.js build (production)</td></tr></tbody></table></div>
+<p><strong>Payload admin panel is disabled.</strong> All admin UI is a custom Next.js dashboard under <code>/dashboard/[tenant]/(virtus)/</code>.</p>
+<p><strong>Marketplace artifact isolation strategy:</strong> Currently appears to rely on route structure and role-based access checks. No explicit feature-flag system was identified. Future marketplace routes are present in the routing tree and linked in parts of the UI; actual runtime access by role should be verified and hardened.</p>
+<hr/>
+<h2 id="11-data-model-summary">11. Data Model Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-data-model-summary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Collection</th><th>Purpose</th></tr></thead><tbody><tr><td><code>tenants</code></td><td>Account/workspace entities; flags: <code>isCompany</code>, <code>isInfluencer</code>, <code>isAgency</code>; <code>managedBy</code> for agency hierarchy</td></tr><tr><td><code>users</code></td><td>Auth users with per-tenant role assignments; KYC status and document fields</td></tr><tr><td><code>campaigns</code></td><td>Core campaign unit — ticker, title, budget, dates, target URL, status, payment status</td></tr><tr><td><code>collaborations</code></td><td>Creator-campaign assignment record; tracks work status and payment lifecycle</td></tr><tr><td><code>campaign-deliverables</code></td><td>Individual content deliverables with URL, metrics (views, likes, comments), status</td></tr><tr><td><code>campaign-tasks</code></td><td>Task-level work items within a collaboration</td></tr><tr><td><code>task-submissions</code></td><td>Submissions against campaign tasks</td></tr><tr><td><code>campaign-contacts</code></td><td>Contact list for a campaign</td></tr><tr><td><code>campaign-messages</code></td><td>Messaging within campaigns</td></tr><tr><td><code>channels</code></td><td>Creator social/media properties (pending → approved/rejected)</td></tr><tr><td><code>platforms</code></td><td>Social platform reference data (seeded)</td></tr><tr><td><code>influencer-packages</code></td><td>Creator service packages (pricing, deliverable types)</td></tr><tr><td><code>collaboration-packages</code></td><td>Packages selected within a collaboration</td></tr><tr><td><code>proposals</code></td><td>Collaboration proposals / applications</td></tr><tr><td><code>connections</code></td><td>Bilateral influencer-company relationship records (statusInfluencer, statusCompany)</td></tr><tr><td><code>user-agreements</code></td><td>Legal agreement acceptance records</td></tr><tr><td><code>onboarding-forms</code></td><td>Onboarding form submission data</td></tr><tr><td><code>media</code></td><td>Uploaded files (private Vercel Blob storage)</td></tr><tr><td><code>geo-targets</code></td><td>Geographic targeting taxonomy</td></tr><tr><td><code>industries</code></td><td>Industry taxonomy</td></tr><tr><td><code>product-categories</code></td><td>Product category taxonomy</td></tr></tbody></table></div>
+<p><strong>Globals:</strong></p>
+<ul>
+<li><code>campaign-settings</code> — platform-wide campaign configuration</li>
+</ul>
+<hr/>
+<h2 id="12-role-specific-workflows">12. Role-Specific Workflows<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-role-specific-workflows" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="virtus-super-admin--campaign-manager">Virtus Super Admin / Campaign Manager<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#virtus-super-admin--campaign-manager" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Create and configure campaigns</li>
+<li>Set campaign payment status (unpaid → paid → waived)</li>
+<li>Assign creators or agencies to campaigns (creates Collaboration records)</li>
+<li>Approve/reject creator channel submissions</li>
+<li>Review and verify submitted deliverables and metrics</li>
+<li>Release collaboration payments (admin approval side of dual-approval)</li>
+<li>Review KYC documents (W-9, W-8BEN)</li>
+<li>Manage tenants and user accounts</li>
+<li>Generate client-facing reports</li>
+<li>Maintain separation between company users and creator/agency users</li>
+</ul>
+<h3 id="company--ir-client-client-role">Company / IR Client (<code>client</code> role)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#company--ir-client-client-role" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>View campaign calendar and timeline</li>
+<li>View live, upcoming, and completed campaigns</li>
+<li>View performance reports</li>
+<li><strong>Does not</strong> create campaigns</li>
+<li><strong>Does not</strong> browse or contact creators, publishers, or agencies</li>
+</ul>
+<h3 id="individual-creator-influencer-role">Individual Creator (<code>influencer</code> role)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#individual-creator-influencer-role" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Complete onboarding (profile, channels, KYC/tax documents, Stripe Connect setup)</li>
+<li>Accept assigned campaigns (Collaborations in <code>pending</code> state)</li>
+<li>Submit deliverables (URL, content type, metrics)</li>
+<li>Track collaboration status through the work lifecycle</li>
+<li>Receive direct payment via Stripe (after dual-approval release)</li>
+<li><strong>Does not</strong> browse a general marketplace of available company campaigns (current phase)</li>
+</ul>
+<h3 id="ugc--media-agency">UGC / Media Agency<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#ugc--media-agency" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Tenant with <code>isAgency: true</code></li>
+<li>Complete Stripe Connect onboarding at agency level</li>
+<li>Create and manage creator accounts under the agency (<code>managedBy</code> relationship)</li>
+<li>Accept campaigns on behalf of creator network</li>
+<li>Submit deliverables and metrics</li>
+<li>Receive agency-level payment; pays creators outside the platform</li>
+</ul>
+<hr/>
+<h2 id="13-reporting">13. Reporting<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-reporting" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Reports are generated by Virtus admins based on verified campaign metrics</li>
+<li>Performance data is <strong>manually entered</strong> by creators/agencies via <code>CampaignDeliverable</code> records</li>
+<li>Metrics tracked: views, likes, comments per deliverable; campaign-level budget progress</li>
+<li>Reports are delivered to companies through the platform</li>
+</ul>
+<p><strong>Current status:</strong> <code>[TBD — confirm whether report generation UI is fully built, partially built, or pending]</code></p>
+<p>OpenAI SDK is present in dependencies — may be used for report generation or analytics summaries. Scope should be confirmed.</p>
+<hr/>
+<h2 id="14-payments">14. Payments<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#14-payments" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Scenario</th><th>Payment Flow</th></tr></thead><tbody><tr><td>Independent creator</td><td>Paid directly via Stripe Connect (platform-managed)</td></tr><tr><td>UGC agency</td><td>Agency paid via Stripe Connect; agency pays creators externally</td></tr><tr><td>Agency-managed creator</td><td>Paid by agency outside the platform</td></tr><tr><td>Company → Virtus</td><td>Company pays Virtus outside platform during the current phase; internal payment-status fields may be updated after confirmation</td></tr></tbody></table></div>
+<h3 id="payment-lifecycle-collaboration">Payment Lifecycle (Collaboration)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#payment-lifecycle-collaboration" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<pre><code>pending → paid_held → released
+           ↓              ↓
+        refunded      completed
+</code></pre>
+<ul>
+<li><code>paid_held</code>: Stripe-related payment state used by collaboration payout flows; verify whether this is true escrow, delayed capture, or an internal hold abstraction before relying on it operationally</li>
+<li><code>released</code>: Dual-approval required — <code>influencerApproval</code> + <code>companyApproval</code> (or admin force-release via <code>/api/admin/contracts/[id]/force-release</code>)</li>
+<li>Stripe webhook handler implemented at <code>/api/stripe/webhooks</code> handling: <code>checkout.session.completed</code>, <code>async_payment_succeeded</code>, <code>async_payment_failed</code>, <code>payment_intent.*</code> events</li>
+</ul>
+<h3 id="campaign-payment">Campaign Payment<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#campaign-payment" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Current business understanding: company billing is handled outside the platform during this phase</li>
+<li>Code paths for Stripe Checkout and campaign payment handling exist and should be reconciled with the current external billing process</li>
+<li>Campaign <code>campaignPaymentStatus</code>: <code>unpaid</code> → <code>paid</code> (or <code>waived</code> by admin)</li>
+<li>Campaign <code>status</code>: <code>pending_payment</code> → <code>available</code> → <code>completed</code></li>
+</ul>
+<h3 id="kyc--tax-onboarding">KYC / Tax Onboarding<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#kyc--tax-onboarding" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Creators/agencies must submit W-9 (US) or W-8BEN (non-US) before payout</li>
+<li>Azure AI Document Intelligence used for document parsing</li>
+<li>KYC states: <code>not_submitted</code> → <code>pending_review</code> → <code>approved</code> / <code>rejected</code></li>
+<li>Admin reviews via KYC queue in the admin dashboard</li>
+</ul>
+<p><strong>Production readiness:</strong> <code>[TBD — confirm webhook completeness, payout flows, and Stripe Connect onboarding for all user types]</code></p>
+<hr/>
+<h2 id="15-current-implementation-status">15. Current Implementation Status<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#15-current-implementation-status" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Legend:</strong> “Appears built” means relevant code paths exist, but the workflow has not been verified end-to-end from this document alone. <code>[TBD]</code> means implementation or production readiness needs confirmation.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Area</th><th>Status</th><th>Notes</th></tr></thead><tbody><tr><td>Admin dashboard</td><td><code>[TBD]</code></td><td>Custom Next.js dashboard; Payload admin panel disabled</td></tr><tr><td>Campaign creation (admin)</td><td>Appears built</td><td>Campaign CRUD with full status lifecycle</td></tr><tr><td>Campaign assignment</td><td>Appears built</td><td>Collaboration records created and managed</td></tr><tr><td>Creator/agency acceptance flow</td><td>Appears built</td><td>Status transitions, proposal/apply routes present</td></tr><tr><td>Deliverable submission</td><td>Appears built</td><td><code>CampaignDeliverable</code> with URL + metrics; auto-status sync</td></tr><tr><td>Metrics review (admin)</td><td><code>[TBD]</code></td><td>Verify admin review/approval UI completeness</td></tr><tr><td>Report generation</td><td><code>[TBD]</code></td><td>Confirm whether client-facing report UI exists</td></tr><tr><td>Company calendar / report view</td><td><code>[TBD]</code></td><td>Confirm company-scoped views are working</td></tr><tr><td>Creator channel approval</td><td>Appears built</td><td>Pending/approved/rejected channel queues</td></tr><tr><td>KYC review</td><td>Appears built</td><td>Admin KYC review queue in admin-view</td></tr><tr><td>Payments / Stripe Checkout</td><td>Appears built</td><td>Webhook handler, checkout routes present; reconcile with current external company-billing model</td></tr><tr><td>Stripe Connect (creator onboarding)</td><td>Appears built</td><td><code>/stripe-setup/[tenantId]</code> flow, connect API routes</td></tr><tr><td>Agency management</td><td>Appears built</td><td><code>managedBy</code> tenant relationship, agency flag</td></tr><tr><td>Connections system</td><td>Appears built</td><td>Bilateral influencer-company relationship records</td></tr><tr><td>Deployment</td><td><code>[TBD]</code></td><td>Vercel deployment assumed; confirm CI/CD pipeline</td></tr><tr><td>Automated tests</td><td>Partial</td><td>Vitest configured; analytics scripts present; no apparent e2e</td></tr><tr><td>Future marketplace isolation</td><td>Risk</td><td>Available-campaigns browse + apply routes are present in the route tree and linked in parts of the UI</td></tr></tbody></table></div>
+<hr/>
+<h2 id="16-known-risks--open-questions">16. Known Risks / Open Questions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#16-known-risks--open-questions" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="permissions--access-control">Permissions / Access Control<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#permissions--access-control" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><code>campaignReadAccess</code> for <code>influencer</code> role has an incomplete implementation: the <code>in: []</code> clause (empty array) in the query constraint may fail closed at the collection-access layer, while page/API-level queries could still expose data if they bypass or override that access path. Needs verification.</li>
+<li>The <code>available</code> campaigns page is present in the live route tree and linked in parts of the UI — confirm whether runtime access should be gated or removed in the current phase.</li>
+<li>Confirm company users (<code>client</code> role) cannot see creator/agency data or campaign financials.</li>
+<li>Confirm creators cannot see campaigns they are not assigned to.</li>
+<li>Confirm agencies can only manage their own child creator tenants.</li>
+</ul>
+<h3 id="marketplace-artifacts">Marketplace Artifacts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#marketplace-artifacts" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><code>campaigns/available</code> browse page and <code>POST /api/campaigns/[id]/apply</code> are present in the application. If the intent is to keep these hidden from current users, access controls or routing guards need to be verified.</li>
+<li>Connections system allows influencer-company bilateral connections — confirm this does not enable direct discovery or communication outside the admin-managed flow.</li>
+</ul>
+<h3 id="payments">Payments<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#payments" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Confirm Stripe webhook completeness and error handling for all payment states.</li>
+<li>Confirm the dual-approval fund release flow works end-to-end.</li>
+<li>Confirm KYC/tax onboarding is gating payouts correctly.</li>
+<li>Azure Document Intelligence integration scope and reliability is unknown.</li>
+</ul>
+<h3 id="reporting">Reporting<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#reporting" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Confirm whether client-facing report generation UI is built and delivering to company users.</li>
+<li>OpenAI SDK usage scope is unclear.</li>
+</ul>
+<h3 id="data--schema">Data / Schema<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#data--schema" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Only one migration exists (<code>20260509_002126_init</code>) — migration history is shallow/early, and production schema drift should be verified.</li>
+<li>MongoDB adapter is commented out; Postgres is active.</li>
+</ul>
+<h3 id="testing">Testing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#testing" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>No apparent end-to-end test suite. Regression risk is high for complex payment and permission flows.</li>
+</ul>
+<h3 id="deployment">Deployment<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#deployment" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Vercel deployment assumed but not confirmed from code alone.</li>
+<li><code>regenerate</code> npm script wipes and reseeds the database — confirm this is dev-only and cannot affect production.</li>
+</ul>
+<hr/>
+<h2 id="17-technical-commands-and-local-setup">17. Technical Commands and Local Setup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#17-technical-commands-and-local-setup" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Install dependencies</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> install</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Development (Turbopack + HTTPS experimental)</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> dev</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Production build</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> build</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Start production server</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> start</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Payload CLI</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> payload</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [command]</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Generate Payload types, import map, GraphQL schema</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> generate</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Run database migrations</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> payload</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> migrate</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Seed reference/test data</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> seed</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Lint</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># (ESLint configured via eslint.config.js)</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Tests</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> test</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> test:watch</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> test:coverage</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Analytics-specific test scripts</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> test:analytics</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> test:calculators</span></span></code></pre></figure>
+<p><strong>Runtime requirements:</strong></p>
+<ul>
+<li>Node.js <code>^18.20.2</code> or <code>>=20.9.0</code></li>
+<li>pnpm (package manager)</li>
+<li>Postgres database (Vercel Postgres in production; local Postgres for dev)</li>
+<li>Environment variables (see Section 18)</li>
+</ul>
+<p><strong>Known setup assumptions:</strong></p>
+<ul>
+<li>HTTPS experimental flag is used in dev (<code>--experimental-https</code>) — local SSL cert may be required</li>
+<li>Turbopack used in dev; standard Next.js webpack in production build</li>
+</ul>
+<hr/>
+<h2 id="18-environment-variable-categories">18. Environment Variable Categories<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#18-environment-variable-categories" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Category</th><th>Purpose</th><th>Examples</th></tr></thead><tbody><tr><td>Database</td><td>Postgres connection</td><td><code>POSTGRES_URL</code></td></tr><tr><td>Auth / Session</td><td>Payload JWT secret</td><td><code>PAYLOAD_SECRET</code></td></tr><tr><td>Payments</td><td>Stripe keys, webhook secret</td><td><code>STRIPE_SECRET_KEY</code>, <code>STRIPE_WEBHOOK_SECRET</code>, <code>STRIPE_PUBLISHABLE_KEY</code></td></tr><tr><td>Email</td><td>SendGrid / Brevo API keys and sender config</td><td><code>SENDGRID_API_KEY</code>, <code>SENDGRID_FROM_ADDRESS</code>, <code>BREVO_SENDER_EMAIL</code></td></tr><tr><td>Storage</td><td>Vercel Blob token</td><td><code>BLOB_READ_WRITE_TOKEN</code></td></tr><tr><td>App URLs</td><td>Local, staging, production base URLs</td><td><code>NEXT_PUBLIC_SERVER_URL</code></td></tr><tr><td>Public client config</td><td>Browser-safe configuration</td><td><code>NEXT_PUBLIC_*</code> vars</td></tr><tr><td>AI / Document services</td><td>OpenAI, Azure AI keys</td><td><code>OPENAI_API_KEY</code>, Azure credentials</td></tr><tr><td>Jobs / Cron</td><td>Cron job authentication</td><td><code>CRON_SECRET</code></td></tr><tr><td>Platform metadata</td><td>Company name, branding</td><td><code>COMPANY_NAME</code></td></tr></tbody></table></div>
+<p>No real values are included in this document. Environment variables are managed outside the codebase (Vercel environment dashboard or equivalent).</p>
+<hr/>
+<h2 id="19-deployment-overview">19. Deployment Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#19-deployment-overview" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Aspect</th><th>Detail</th></tr></thead><tbody><tr><td><strong>Hosting</strong></td><td>Vercel (inferred from <code>@payloadcms/db-vercel-postgres</code>, <code>@payloadcms/storage-vercel-blob</code>, Cron job pattern)</td></tr><tr><td><strong>Build</strong></td><td><code>pnpm build</code> → standard Next.js build via <code>withPayload</code> wrapper</td></tr><tr><td><strong>Database migrations</strong></td><td>Payload <code>migrate</code> command (Drizzle under the hood); single <code>init</code> migration currently</td></tr><tr><td><strong>Preview environments</strong></td><td>Vercel preview deployments expected (per-branch)</td></tr><tr><td><strong>Production releases</strong></td><td><code>[TBD — confirm deployment pipeline: manual release process, automated provider deploys, or another workflow]</code></td></tr><tr><td><strong>Rollback</strong></td><td><code>[TBD — confirm rollback strategy]</code></td></tr><tr><td><strong>Marketplace artifact control</strong></td><td>Currently route-tree and role-access based; no explicit feature-flag system identified</td></tr><tr><td><strong>Dev database reset</strong></td><td><code>pnpm regenerate</code> wipes + reseeds; confirm this cannot reach production</td></tr></tbody></table></div>
+<hr/>
+<h2 id="20-developer-evaluation-checklist">20. Developer Evaluation Checklist<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#20-developer-evaluation-checklist" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>A senior developer taking this on should be able to answer:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> Do I understand why Virtus must remain between companies and creators/agencies?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Do I understand the role boundaries (<code>super-admin</code>, <code>campaign-manager</code>, <code>client</code>, <code>influencer</code>)?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Do I understand the campaign lifecycle (<code>pending_payment → available → completed</code>)?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Do I understand the collaboration lifecycle and payment hold/release model?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Do I understand what is admin-driven versus self-serve?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Do I understand which features are current phase versus future marketplace artifacts?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Do I know which areas are built, partial, or missing?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Do I understand the Stripe Connect payout architecture and any Stripe Checkout code paths?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Do I understand the KYC gating requirements before payout?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Have I identified the access-control risk in <code>campaignReadAccess</code> for influencers and checked whether any page/API queries bypass it?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Have I identified the marketplace route exposure risk?</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Can I estimate how quickly I could ship the next feature?</li>
+</ul>
+<hr/>
+<h2 id="21-suggested-first-areas-to-inspect-if-engaged">21. Suggested First Areas to Inspect If Engaged<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-suggested-first-areas-to-inspect-if-engaged" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Listed in priority order:</p>
+<ol>
+<li><strong>Role and tenant permissions</strong> — verify <code>client</code>, <code>influencer</code>, and <code>campaign-manager</code> access boundaries end-to-end; confirm the incomplete <code>campaignReadAccess</code> influencer clause</li>
+<li><strong>Marketplace artifact audit</strong> — trace <code>campaigns/available</code>, <code>apply</code>, and Connections routes; confirm whether they expose unintended company-creator discovery</li>
+<li><strong>Campaign lifecycle</strong> — admin campaign creation → payment → assignment → deliverable submission → completion</li>
+<li><strong>Collaboration payment flow</strong> — payment event handling → held/internal payment state → dual-approval release</li>
+<li><strong>KYC and Stripe Connect onboarding</strong> — verify gating and completeness for creators and agencies</li>
+<li><strong>Company-facing views</strong> — confirm <code>client</code> role sees only campaign calendar and reports, nothing else</li>
+<li><strong>Report generation</strong> — confirm whether client-facing report delivery is built or pending</li>
+<li><strong>Automated tests</strong> — assess coverage; identify highest-risk untested flows</li>
+<li><strong>Deployment pipeline</strong> — confirm Vercel setup, environment variable management, and migration process</li>
+<li><strong>OpenAI and Azure AI usage</strong> — identify scope and whether these are in production paths</li>
+</ol>
+<hr/>
+<h2 id="22-immediate-product-priorities">22. Immediate Product Priorities<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-immediate-product-priorities" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Priority</th><th>Area</th><th>Reason</th></tr></thead><tbody><tr><td>P0</td><td>Role permission audit</td><td>Protects Virtus’s managed-service position; influencer access constraint is incomplete</td></tr><tr><td>P0</td><td>Marketplace artifact gating</td><td>Prevents users from encountering workflows outside current operating model</td></tr><tr><td>P0</td><td>Reporting workflow</td><td>Core company-facing deliverable; status unclear</td></tr><tr><td>P1</td><td>Metrics review / admin approval UI</td><td>Required before reports are reliable</td></tr><tr><td>P1</td><td>Payment flow end-to-end verification</td><td>Needed before campaign payouts can run in production</td></tr><tr><td>P1</td><td>Agency-managed creator flow</td><td>Important for UGC agency model</td></tr><tr><td>P2</td><td>Automated test coverage</td><td>High-risk flows (payments, permissions) have no apparent e2e coverage</td></tr><tr><td>P2</td><td>Future social API integrations</td><td>Later automation phase</td></tr><tr><td>P3</td><td>Future affiliate-style marketplace</td><td>Possible later phase; not proven for this market</td></tr></tbody></table></div>
+<hr/>
+<h2 id="23-information-needed-before-taking-over">23. Information Needed Before Taking Over<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-information-needed-before-taking-over" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This section covers what a new developer would need to understand the project — not credentials or access.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Item</th><th>Status</th></tr></thead><tbody><tr><td>Production URL</td><td><code>[TBD — confirm if shareable]</code></td></tr><tr><td>Staging / preview URL</td><td><code>[TBD]</code></td></tr><tr><td>Frontend framework</td><td>Next.js 15, React 19</td></tr><tr><td>Backend / CMS</td><td>Payload CMS 3.67</td></tr><tr><td>Database</td><td>Vercel Postgres</td></tr><tr><td>Hosting</td><td>Vercel</td></tr><tr><td>Payment provider</td><td>Stripe Connect; Stripe Checkout code paths present and require business-flow confirmation</td></tr><tr><td>Email provider</td><td>SendGrid (primary); Brevo (dependency present)</td></tr><tr><td>Storage provider</td><td>Vercel Blob</td></tr><tr><td>Document AI</td><td>Azure AI Document Intelligence</td></tr><tr><td>AI / LLM</td><td>OpenAI</td></tr><tr><td>Current blockers</td><td>Reporting completeness, permissions audit, marketplace artifact gating</td></tr><tr><td>Product decision owner</td><td>Virtus Media Group stakeholders</td></tr><tr><td>Business rule clarification</td><td>Virtus admin team</td></tr></tbody></table></div>
+<hr/>
+<h2 id="24-security-notes">24. Security Notes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-security-notes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>Secrets:</strong> Never commit <code>.env</code> files. All secrets are managed via hosting environment variables.</li>
+<li><strong>Role enforcement:</strong> <code>super-admin</code> is a global role set on the <code>User.roles</code> array; tenant-specific roles (<code>tenant-admin</code>, <code>campaign-manager</code>, <code>influencer</code>, <code>client</code>) are set per-tenant in <code>User.tenants[].roles</code>. Both layers must be checked.</li>
+<li><strong>Company isolation:</strong> <code>client</code> users must only see campaigns and reports scoped to their tenant. Verify multi-tenant plugin enforces this.</li>
+<li><strong>Creator isolation:</strong> <code>influencer</code> users should only see campaigns they are assigned to. The current <code>campaignReadAccess</code> implementation for influencers has an incomplete query clause (<code>in: []</code>) — <strong>this is a known risk</strong>, especially if route/page/API queries do not consistently rely on the same access layer.</li>
+<li><strong>Agency isolation:</strong> Agency tenants should only manage creator tenants with <code>managedBy</code> pointing to them. Verify this constraint is enforced in all relevant queries.</li>
+<li><strong>Marketplace routes:</strong> <code>campaigns/available</code> and <code>POST /api/campaigns/[id]/apply</code> are present in the application. Confirm they do not expose company-to-creator discovery or unintended self-serve behavior.</li>
+<li><strong>Payment data:</strong> Stripe handles all PCI-sensitive data. Platform stores only Stripe IDs (session IDs, payment intent IDs). Do not log or expose full payment objects.</li>
+<li><strong>KYC documents:</strong> W-9/W-8BEN files are stored in private Vercel Blob storage. Confirm access tokens are not publicly accessible.</li>
+<li><strong>Force-release endpoint:</strong> <code>/api/admin/contracts/[id]/force-release</code> bypasses dual-approval. Confirm this is restricted to <code>super-admin</code> only.</li>
+<li><strong>Cron jobs:</strong> Protected by <code>CRON_SECRET</code> in Authorization header. Confirm secret rotation process.</li>
+<li><strong>Database reset script:</strong> <code>pnpm regenerate</code> drops and reseeds the database. Confirm this cannot target production.</li>
+</ul>
+<hr/>
+<h2 id="25-suggested-first-day-developer-checklist">25. Suggested First-Day Developer Checklist<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-suggested-first-day-developer-checklist" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>Read Sections 2–9 of this document (product model, operating model, constraints)</li>
+<li>Confirm the managed-service role boundaries by reading <code>src/access/campaign-access.ts</code> and <code>src/collections/users/</code></li>
+<li>Map all user types to their tenant flags (<code>isCompany</code>, <code>isInfluencer</code>, <code>isAgency</code>) in <code>src/collections/tenants/</code></li>
+<li>Trace the campaign lifecycle: creation → payment → assignment → deliverable → report</li>
+<li>Trace the collaboration payment lifecycle: payment event handling → held/internal payment state → dual-approval release</li>
+<li>Audit the <code>campaigns/available</code> route and <code>apply</code> API endpoint for current-phase exposure risk</li>
+<li>Audit the <code>Connections</code> collection for company-creator discovery risk</li>
+<li>Confirm <code>client</code> role cannot reach creator/admin views</li>
+<li>Confirm <code>influencer</code> role cannot reach campaigns they are not assigned to, including any routes or APIs that bypass collection-level access</li>
+<li>Review Stripe webhook handler completeness (<code>src/app/api/stripe/webhooks/route.ts</code>)</li>
+<li>Confirm KYC/Stripe Connect onboarding is gating payouts before any live campaign payout</li>
+<li>Run <code>pnpm test</code> to assess current test pass rate</li>
+<li>Set up local environment and confirm <code>pnpm dev</code> runs cleanly</li>
+<li>Identify the single highest-priority unfinished feature and scope the first shipping task</li>
+</ol>
+<hr/>
+<h2 id="26-glossary">26. Glossary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-glossary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>Virtus Admin</strong></td><td>Internal Virtus Media Group operator; manages all campaigns, assignments, reviews, and reports</td></tr><tr><td><strong>Company / IR Client</strong></td><td>Public company or investor relations team; the paying client</td></tr><tr><td><strong>Creator / Influencer</strong></td><td>Individual content creator, publisher, or social media account holder who executes campaign work</td></tr><tr><td><strong>UGC Agency</strong></td><td>Agency managing multiple creators; accepts campaigns at agency level; pays creators externally</td></tr><tr><td><strong>Agency-Managed Creator</strong></td><td>Creator operating under an agency’s account; paid by agency outside the platform</td></tr><tr><td><strong>Campaign</strong></td><td>Core unit of work — a paid IR media campaign managed through Virtus</td></tr><tr><td><strong>Collaboration</strong></td><td>A creator or agency’s assignment to a campaign; tracks work status and payment lifecycle</td></tr><tr><td><strong>Deliverable</strong></td><td>An individual required piece of content (post, article, newsletter, video) with a URL and metrics</td></tr><tr><td><strong>Metric</strong></td><td>Manually entered performance data (views, likes, comments) for a deliverable</td></tr><tr><td><strong>Report</strong></td><td>Company-facing campaign performance summary generated by Virtus admin</td></tr><tr><td><strong>Tenant</strong></td><td>Account/workspace entity in the platform; may represent a Virtus workspace, a company, a creator, or an agency</td></tr><tr><td><strong>Super Admin</strong></td><td>Global platform administrator; full access across all tenants</td></tr><tr><td><strong>Managed Service</strong></td><td>Current operating model — Virtus controls all campaign operations between IR clients and creators</td></tr><tr><td><strong>Stripe Connect</strong></td><td>Stripe’s sub-account system used to onboard creators/agencies and route payouts</td></tr><tr><td><strong>KYC</strong></td><td>Know Your Customer — tax and identity verification (W-9 for US persons, W-8BEN for non-US)</td></tr><tr><td><strong>Marketplace / Affiliate-Style Flow</strong></td><td>Possible future model where companies post campaigns and creators browse/apply independently</td></tr><tr><td><strong>Hidden Artifact</strong></td><td>Code or UI for future-phase functionality that is not currently intended for production users</td></tr><tr><td><strong>Connection</strong></td><td>A bilateral relationship record between an influencer tenant and a company tenant</td></tr><tr><td><strong>Ticker</strong></td><td>Stock ticker symbol associated with a campaign (e.g., <code>AAPL</code>)</td></tr></tbody></table></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-6" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#virtus-media-platform--technical-overview" data-for="virtus-media-platform--technical-overview">Virtus Media Platform — Technical Overview</a></li><li class="depth-1"><a href="#1-purpose" data-for="1-purpose">1. Purpose</a></li><li class="depth-1"><a href="#2-product-summary" data-for="2-product-summary">2. Product Summary</a></li><li class="depth-1"><a href="#3-operating-model" data-for="3-operating-model">3. Operating Model</a></li><li class="depth-2"><a href="#what-this-platform-is" data-for="what-this-platform-is">What This Platform Is</a></li><li class="depth-2"><a href="#what-this-platform-is-not-current-phase" data-for="what-this-platform-is-not-current-phase">What This Platform Is Not (Current Phase)</a></li><li class="depth-1"><a href="#4-current-managed-service-rationale" data-for="4-current-managed-service-rationale">4. Current Managed-Service Rationale</a></li><li class="depth-1"><a href="#5-future-marketplace--affiliate-style-artifacts" data-for="5-future-marketplace--affiliate-style-artifacts">5. Future Marketplace / Affiliate-Style Artifacts</a></li><li class="depth-1"><a href="#6-future-marketplace-business-hypothesis" data-for="6-future-marketplace-business-hypothesis">6. Future Marketplace Business Hypothesis</a></li><li class="depth-1"><a href="#7-tenant--user-types" data-for="7-tenant--user-types">7. Tenant / User Types</a></li><li class="depth-1"><a href="#8-core-workflow" data-for="8-core-workflow">8. Core Workflow</a></li><li class="depth-1"><a href="#9-current-phase-constraints" data-for="9-current-phase-constraints">9. Current Phase Constraints</a></li><li class="depth-1"><a href="#10-architecture-overview" data-for="10-architecture-overview">10. Architecture Overview</a></li><li class="depth-1"><a href="#11-data-model-summary" data-for="11-data-model-summary">11. Data Model Summary</a></li><li class="depth-1"><a href="#12-role-specific-workflows" data-for="12-role-specific-workflows">12. Role-Specific Workflows</a></li><li class="depth-2"><a href="#virtus-super-admin--campaign-manager" data-for="virtus-super-admin--campaign-manager">Virtus Super Admin / Campaign Manager</a></li><li class="depth-2"><a href="#company--ir-client-client-role" data-for="company--ir-client-client-role">Company / IR Client (client role)</a></li><li class="depth-2"><a href="#individual-creator-influencer-role" data-for="individual-creator-influencer-role">Individual Creator (influencer role)</a></li><li class="depth-2"><a href="#ugc--media-agency" data-for="ugc--media-agency">UGC / Media Agency</a></li><li class="depth-1"><a href="#13-reporting" data-for="13-reporting">13. Reporting</a></li><li class="depth-1"><a href="#14-payments" data-for="14-payments">14. Payments</a></li><li class="depth-2"><a href="#payment-lifecycle-collaboration" data-for="payment-lifecycle-collaboration">Payment Lifecycle (Collaboration)</a></li><li class="depth-2"><a href="#campaign-payment" data-for="campaign-payment">Campaign Payment</a></li><li class="depth-2"><a href="#kyc--tax-onboarding" data-for="kyc--tax-onboarding">KYC / Tax Onboarding</a></li><li class="depth-1"><a href="#15-current-implementation-status" data-for="15-current-implementation-status">15. Current Implementation Status</a></li><li class="depth-1"><a href="#16-known-risks--open-questions" data-for="16-known-risks--open-questions">16. Known Risks / Open Questions</a></li><li class="depth-2"><a href="#permissions--access-control" data-for="permissions--access-control">Permissions / Access Control</a></li><li class="depth-2"><a href="#marketplace-artifacts" data-for="marketplace-artifacts">Marketplace Artifacts</a></li><li class="depth-2"><a href="#payments" data-for="payments">Payments</a></li><li class="depth-2"><a href="#reporting" data-for="reporting">Reporting</a></li><li class="depth-2"><a href="#data--schema" data-for="data--schema">Data / Schema</a></li><li class="depth-2"><a href="#testing" data-for="testing">Testing</a></li><li class="depth-2"><a href="#deployment" data-for="deployment">Deployment</a></li><li class="depth-1"><a href="#17-technical-commands-and-local-setup" data-for="17-technical-commands-and-local-setup">17. Technical Commands and Local Setup</a></li><li class="depth-1"><a href="#18-environment-variable-categories" data-for="18-environment-variable-categories">18. Environment Variable Categories</a></li><li class="depth-1"><a href="#19-deployment-overview" data-for="19-deployment-overview">19. Deployment Overview</a></li><li class="depth-1"><a href="#20-developer-evaluation-checklist" data-for="20-developer-evaluation-checklist">20. Developer Evaluation Checklist</a></li><li class="depth-1"><a href="#21-suggested-first-areas-to-inspect-if-engaged" data-for="21-suggested-first-areas-to-inspect-if-engaged">21. Suggested First Areas to Inspect If Engaged</a></li><li class="depth-1"><a href="#22-immediate-product-priorities" data-for="22-immediate-product-priorities">22. Immediate Product Priorities</a></li><li class="depth-1"><a href="#23-information-needed-before-taking-over" data-for="23-information-needed-before-taking-over">23. Information Needed Before Taking Over</a></li><li class="depth-1"><a href="#24-security-notes" data-for="24-security-notes">24. Security Notes</a></li><li class="depth-1"><a href="#25-suggested-first-day-developer-checklist" data-for="25-suggested-first-day-developer-checklist">25. Suggested First-Day Developer Checklist</a></li><li class="depth-1"><a href="#26-glossary" data-for="26-glossary">26. Glossary</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://hamiltonrevenue.com">Hamilton Revenue</a></li><li><a href="https://sendswell.com">SendSwell</a></li></ul></footer></div></div></body><script type="application/javascript">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module">function f(i,e){if(!i)return;function r(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function t(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}i?.addEventListener("click",r),window.addCleanup(()=>i?.removeEventListener("click",r)),document.addEventListener("keydown",t),window.addCleanup(()=>document.removeEventListener("keydown",t))}function y(i){for(;i.firstChild;)i.removeChild(i.firstChild)}var h=class{constructor(e,r){this.container=e;this.content=r;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),r=this.onMouseMove.bind(this),t=this.onMouseUp.bind(this),o=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",r),document.addEventListener("mouseup",t),window.addEventListener("resize",o),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",r),()=>document.removeEventListener("mouseup",t),()=>window.removeEventListener("resize",o))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let r=this.createButton("+",()=>this.zoom(.1)),t=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(t),e.appendChild(o),e.appendChild(r),this.container.appendChild(e)}createButton(e,r){let t=document.createElement("button");return t.textContent=e,t.className="mermaid-control-button",t.addEventListener("click",r),window.addCleanup(()=>t.removeEventListener("click",r)),t}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}zoom(e){let r=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),t=this.content.getBoundingClientRect(),o=t.width/2,n=t.height/2,c=r-this.scale;this.currentPan.x-=o*c,this.currentPan.y-=n*c,this.scale=r,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){this.scale=1;let e=this.content.querySelector("svg");this.currentPan={x:e.getBoundingClientRect().width/2,y:e.getBoundingClientRect().height/2},this.updateTransform()}},C=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],E;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;E||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let r=E.default,t=new WeakMap;for(let n of e)t.set(n,n.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let a=t.get(s);a&&(s.innerHTML=a)}let n=C.reduce((s,a)=>(s[a]=window.getComputedStyle(document.documentElement).getPropertyValue(a),s),{}),c=document.documentElement.getAttribute("saved-theme")==="dark";r.initialize({startOnLoad:!1,securityLevel:"loose",theme:c?"dark":"base",themeVariables:{fontFamily:n["--codeFont"],primaryColor:n["--light"],primaryTextColor:n["--darkgray"],primaryBorderColor:n["--tertiary"],lineColor:n["--darkgray"],secondaryColor:n["--secondary"],tertiaryColor:n["--tertiary"],clusterBkg:n["--light"],edgeLabelBackground:n["--highlight"]}}),await r.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let n=0;n<e.length;n++){let v=function(){let g=l.querySelector("#mermaid-space"),m=l.querySelector(".mermaid-content");if(!m)return;y(m);let w=c.querySelector("svg").cloneNode(!0);m.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new h(g,m)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},c=e[n],s=c.parentElement,a=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(a),L=a.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),f(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script src="./postscript.js" type="module"></script></html>

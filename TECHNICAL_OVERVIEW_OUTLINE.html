@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>TECHNICAL_OVERVIEW_OUTLINE :: NealOS</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="NealOS"/><meta property="og:title" content="TECHNICAL_OVERVIEW_OUTLINE :: NealOS"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="TECHNICAL_OVERVIEW_OUTLINE :: NealOS"/><meta name="twitter:description" content="Virtus Media Platform Technical Overview Outline 1."/><meta property="og:description" content="Virtus Media Platform Technical Overview Outline 1."/><meta property="og:image:alt" content="Virtus Media Platform Technical Overview Outline 1."/><meta property="twitter:domain" content="nealos.hamiltonrevenue.com"/><meta property="og:url" content="https://nealos.hamiltonrevenue.com/TECHNICAL_OVERVIEW_OUTLINE"/><meta property="twitter:url" content="https://nealos.hamiltonrevenue.com/TECHNICAL_OVERVIEW_OUTLINE"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="Virtus Media Platform Technical Overview Outline 1."/><meta name="generator" content="Quartz"/><link href="./index.css" rel="stylesheet" type="text/css" spa-preserve/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  padding: 2rem;
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL25lYWwvcXVhcnR6LXY0L3F1YXJ0ei9jb21wb25lbnRzL3N0eWxlcyIsInNvdXJjZXMiOlsibWVybWFpZC5pbmxpbmUuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTs7O0FBS0Y7RUFDRTtFQUNBOzs7QUFJSjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTtFQUNBOztBQUdGO0VBQ0U7RUFDQTs7QUFJSjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTs7QUFJRjtFQUNFO0VBQ0E7RUFDQSIsInNvdXJjZXNDb250ZW50IjpbIi5leHBhbmQtYnV0dG9uIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbG9hdDogcmlnaHQ7XG4gIHBhZGRpbmc6IDAuNHJlbTtcbiAgbWFyZ2luOiAwLjNyZW07XG4gIHJpZ2h0OiAwOyAvLyBOT1RFOiByaWdodCB3aWxsIGJlIHNldCBpbiBtZXJtYWlkLmlubGluZS50c1xuICBjb2xvcjogdmFyKC0tZ3JheSk7XG4gIGJvcmRlci1jb2xvcjogdmFyKC0tZGFyayk7XG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWxpZ2h0KTtcbiAgYm9yZGVyOiAxcHggc29saWQ7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgb3BhY2l0eTogMDtcbiAgdHJhbnNpdGlvbjogMC4ycztcblxuICAmID4gc3ZnIHtcbiAgICBmaWxsOiB2YXIoLS1saWdodCk7XG4gICAgZmlsdGVyOiBjb250cmFzdCgwLjMpO1xuICB9XG5cbiAgJjpob3ZlciB7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIGJvcmRlci1jb2xvcjogdmFyKC0tc2Vjb25kYXJ5KTtcbiAgfVxuXG4gICY6Zm9jdXMge1xuICAgIG91dGxpbmU6IDA7XG4gIH1cbn1cblxucHJlIHtcbiAgJjpob3ZlciA+IC5leHBhbmQtYnV0dG9uIHtcbiAgICBvcGFjaXR5OiAxO1xuICAgIHRyYW5zaXRpb246IDAuMnM7XG4gIH1cbn1cblxuI21lcm1haWQtY29udGFpbmVyIHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBjb250YWluOiBsYXlvdXQ7XG4gIHotaW5kZXg6IDk5OTtcbiAgbGVmdDogMDtcbiAgdG9wOiAwO1xuICB3aWR0aDogMTAwdnc7XG4gIGhlaWdodDogMTAwdmg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGRpc3BsYXk6IG5vbmU7XG4gIGJhY2tkcm9wLWZpbHRlcjogYmx1cig0cHgpO1xuICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuNSk7XG5cbiAgJi5hY3RpdmUge1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgfVxuXG4gICYgPiAjbWVybWFpZC1zcGFjZSB7XG4gICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gICAgYm9yZGVyLXJhZGl1czogNXB4O1xuICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICB0b3A6IDUwJTtcbiAgICBsZWZ0OiA1MCU7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG4gICAgaGVpZ2h0OiA4MHZoO1xuICAgIHdpZHRoOiA4MHZ3O1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG5cbiAgICAmID4gLm1lcm1haWQtY29udGVudCB7XG4gICAgICBwYWRkaW5nOiAycmVtO1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgdHJhbnNmb3JtLW9yaWdpbjogMCAwO1xuICAgICAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuMXMgZWFzZTtcbiAgICAgIG92ZXJmbG93OiB2aXNpYmxlO1xuICAgICAgbWluLWhlaWdodDogMjAwcHg7XG4gICAgICBtaW4td2lkdGg6IDIwMHB4O1xuXG4gICAgICBwcmUge1xuICAgICAgICBtYXJnaW46IDA7XG4gICAgICAgIGJvcmRlcjogbm9uZTtcbiAgICAgIH1cblxuICAgICAgc3ZnIHtcbiAgICAgICAgbWF4LXdpZHRoOiBub25lO1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICB9XG4gICAgfVxuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRyb2xzIHtcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgIGJvdHRvbTogMjBweDtcbiAgICAgIHJpZ2h0OiAyMHB4O1xuICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgIGdhcDogOHB4O1xuICAgICAgcGFkZGluZzogOHB4O1xuICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgIGJvcmRlci1yYWRpdXM6IDZweDtcbiAgICAgIGJveC1zaGFkb3c6IDAgMnB4IDRweCByZ2JhKDAsIDAsIDAsIDAuMSk7XG4gICAgICB6LWluZGV4OiAyO1xuXG4gICAgICAubWVybWFpZC1jb250cm9sLWJ1dHRvbiB7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgICAgICB3aWR0aDogMzJweDtcbiAgICAgICAgaGVpZ2h0OiAzMnB4O1xuICAgICAgICBwYWRkaW5nOiAwO1xuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodCk7XG4gICAgICAgIGNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4O1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgICAgZm9udC1mYW1pbHk6IHZhcigtLWJvZHlGb250KTtcbiAgICAgICAgdHJhbnNpdGlvbjogYWxsIDAuMnMgZWFzZTtcblxuICAgICAgICAmOmhvdmVyIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICB9XG5cbiAgICAgICAgJjphY3RpdmUge1xuICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgxcHgpO1xuICAgICAgICB9XG5cbiAgICAgICAgLy8gU3R5bGUgdGhlIHJlc2V0IGJ1dHRvbiBkaWZmZXJlbnRseVxuICAgICAgICAmOm50aC1jaGlsZCgyKSB7XG4gICAgICAgICAgd2lkdGg6IGF1dG87XG4gICAgICAgICAgcGFkZGluZzogMCAxMnB4O1xuICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxufVxuIl19 */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="./prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://nealos.hamiltonrevenue.com/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://nealos.hamiltonrevenue.com/TECHNICAL_OVERVIEW_OUTLINE-og-image.webp"/><meta property="og:image:url" content="https://nealos.hamiltonrevenue.com/TECHNICAL_OVERVIEW_OUTLINE-og-image.webp"/><meta name="twitter:image" content="https://nealos.hamiltonrevenue.com/TECHNICAL_OVERVIEW_OUTLINE-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="TECHNICAL_OVERVIEW_OUTLINE"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">NealOS</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-10"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-10" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="./">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>TECHNICAL_OVERVIEW_OUTLINE</a></div></nav><h1 class="article-title">TECHNICAL_OVERVIEW_OUTLINE</h1><p show-comma="true" class="content-meta"><time datetime="2026-06-12T17:21:34.000Z">Jun 12, 2026</time><span>11 min read</span></p></div></div><article class="popover-hint"><h1 id="virtus-media-platform-technical-overview-outline">Virtus Media Platform Technical Overview Outline<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#virtus-media-platform-technical-overview-outline" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="1-purpose">1. Purpose<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-purpose" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This document gives a senior developer enough product, architecture, workflow, and operational context to evaluate whether they can take over development and begin shipping features quickly if engaged.</p>
+<p>It is not intended to include credentials, private access details, repository access details, or sensitive deployment secrets.</p>
+<h2 id="2-product-summary">2. Product Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-product-summary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Virtus Media is an investor relations campaign management platform that supports managed media campaigns between public companies / IR teams and publishers, creators, influencers, and UGC agencies.</p>
+<p>Virtus Media Group remains the operational middle layer. The platform supports Virtus admins in creating campaigns, assigning campaign work, reviewing submitted performance metrics, generating reports, and delivering those reports back to company clients.</p>
+<p>The current business model is primarily managed service, not self-serve marketplace. This matters because the platform should preserve Virtus Media Group’s role as the central operator between IR clients and the creator / publisher / agency network.</p>
+<h2 id="3-operating-model">3. Operating Model<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-operating-model" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="what-this-platform-is">What This Platform Is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-this-platform-is" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Managed-service campaign operations software.</li>
+<li>Internal admin tooling for Virtus Media Group.</li>
+<li>A campaign coordination system for companies, creators, publishers, and UGC agencies.</li>
+<li>A reporting and performance-management layer.</li>
+<li>A platform that supports large, high-touch investor relations media campaigns that are sold and managed by Virtus.</li>
+</ul>
+<h3 id="what-this-platform-is-not-in-the-current-phase">What This Platform Is Not In The Current Phase<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-this-platform-is-not-in-the-current-phase" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Not a self-serve affiliate marketplace.</li>
+<li>Not a system where companies directly post campaigns for creators to browse.</li>
+<li>Not a system where creators freely browse and claim all available campaigns.</li>
+<li>Not designed to remove Virtus from the transaction.</li>
+<li>Not currently dependent on automated social API reporting.</li>
+<li>Not intended to expose direct company-to-creator relationships that would let IR clients bypass Virtus.</li>
+</ul>
+<h2 id="4-current-managed-service-rationale">4. Current Managed-Service Rationale<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-current-managed-service-rationale" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The current real-world Virtus business is centered on managed campaigns that are typically much larger than small affiliate-style jobs. Campaigns can be upward of $50,000 and may reach much higher budgets, including six-figure or larger engagements.</p>
+<p>Because these campaigns are high-value and relationship-driven, Virtus Media Group needs to remain the managed-service layer between IR clients and creators, publishers, influencers, or agencies.</p>
+<p>The platform should preserve a separation between companies and the creator / publisher / agency supply side. Companies should not be able to use the platform to discover and directly contact creators or publishers in a way that bypasses Virtus.</p>
+<p>This separation is intentional. The current product should help Virtus operate campaigns more efficiently without turning the business into a fully open peer-to-peer marketplace.</p>
+<h2 id="5-future-marketplace--affiliate-style-artifacts">5. Future Marketplace / Affiliate-Style Artifacts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-future-marketplace--affiliate-style-artifacts" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>There may be artifacts in the codebase for future phases where the platform behaves more like an affiliate marketing marketplace.</p>
+<p>These artifacts may include, or eventually include:</p>
+<ul>
+<li>Company self-service account creation.</li>
+<li>Company-created campaign posting.</li>
+<li>Creator self-service account creation.</li>
+<li>Creator browsing of available campaigns.</li>
+<li>Creator opt-in / self-selection for available campaigns.</li>
+<li>Marketplace-style campaign discovery.</li>
+<li>Public or semi-public campaign availability pages.</li>
+<li>Workflows where smaller creators or publishers accept small campaign offers without heavy Virtus admin involvement.</li>
+</ul>
+<p>These artifacts should not be interpreted as the current business model unless explicitly enabled for the current phase.</p>
+<p>Some of these features may be commented out, hidden from users, behind feature flags, unfinished, or scheduled to be hidden. They represent possible future-phase work, not necessarily production-ready functionality.</p>
+<h2 id="6-future-marketplace-business-hypothesis">6. Future Marketplace Business Hypothesis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-future-marketplace-business-hypothesis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The affiliate-style marketplace use case is not yet proven for this market.</p>
+<p>If it becomes useful, it would likely apply only to a small percentage of the overall user base, especially:</p>
+<ul>
+<li>Smaller companies running low-budget campaigns.</li>
+<li>Campaigns around a few thousand dollars, for example roughly $5,000.</li>
+<li>Smaller influencers, publishers, or agencies willing to accept lower-touch jobs.</li>
+<li>Campaigns that do not justify the same level of Virtus admin time and oversight as larger managed-service campaigns.</li>
+</ul>
+<p>The future marketplace concept may or may not come to fruition based on market feedback. A developer taking over the project should distinguish between:</p>
+<ul>
+<li>Current managed-service workflows that need to work now.</li>
+<li>Hidden or commented future-phase marketplace workflows that should not leak into the current user experience.</li>
+<li>Product experiments that may need to be removed, completed, or feature-flagged later.</li>
+</ul>
+<h2 id="7-tenant--user-types">7. Tenant / User Types<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-tenant--user-types" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Type</th><th>Role</th><th>Summary</th></tr></thead><tbody><tr><td>Virtus Admin</td><td>Internal operator</td><td>Creates campaigns, assigns work, verifies metrics, generates reports</td></tr><tr><td>Company / IR Client</td><td>Client</td><td>Views timelines and receives campaign reports</td></tr><tr><td>Individual Creator</td><td>Campaign executor</td><td>Accepts assigned campaigns, executes externally, submits metrics</td></tr><tr><td>UGC / Media Agency</td><td>Manager of creators</td><td>Accepts campaigns, manages creator accounts, submits metrics, receives payment</td></tr><tr><td>Agency-Managed Creator</td><td>Creator under agency</td><td>Executes work under agency management</td></tr></tbody></table></div>
+<h2 id="8-core-workflow">8. Core Workflow<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-core-workflow" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>Virtus sales closes a deal with a company outside the platform.</li>
+<li>The deal defines budget, campaign scope, deliverables, and timeline.</li>
+<li>Virtus admin creates the campaign in the platform.</li>
+<li>Admin assigns or invites individual creators and/or agencies.</li>
+<li>Creators/agencies accept campaign work.</li>
+<li>Work is executed externally on social channels, websites, newsletters, or publisher properties.</li>
+<li>Creators/agencies manually submit performance metrics.</li>
+<li>Admin reviews and verifies metrics.</li>
+<li>Admin generates a client-facing performance report.</li>
+<li>Company views or receives the report through the platform.</li>
+<li>Payments are released to individual creators or agencies depending on who accepted the campaign.</li>
+</ol>
+<h2 id="9-current-phase-constraints">9. Current Phase Constraints<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-current-phase-constraints" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Companies do not create campaigns directly.</li>
+<li>Companies do not directly interact with creators/agencies.</li>
+<li>Creators do not browse a marketplace of all available company offers.</li>
+<li>Agencies may manage creators under their own account.</li>
+<li>Performance metrics are manually entered.</li>
+<li>Company billing is handled outside the platform.</li>
+<li>Virtus admins control campaign creation, assignment, review, and reporting.</li>
+<li>Future marketplace features should remain hidden, disabled, or clearly separated unless intentionally activated.</li>
+</ul>
+<h2 id="10-architecture-overview">10. Architecture Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-architecture-overview" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Include high-level architecture only:</p>
+<ul>
+<li>Frontend framework.</li>
+<li>Backend/CMS framework.</li>
+<li>Database model.</li>
+<li>Auth/session approach.</li>
+<li>Tenant/role model.</li>
+<li>Payments model.</li>
+<li>Reporting model.</li>
+<li>Hosting/deployment model.</li>
+<li>External services used.</li>
+<li>Any feature-flag, hidden-route, commented-code, or role-gating strategy used to keep future marketplace artifacts out of the current production experience.</li>
+</ul>
+<p>Avoid specific private access details.</p>
+<h2 id="11-data-model-summary">11. Data Model Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-data-model-summary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Entity</th><th>Purpose</th></tr></thead><tbody><tr><td>User</td><td>Authenticated person with role/profile</td></tr><tr><td>Tenant</td><td>Account/workspace entity</td></tr><tr><td>Company</td><td>IR/public company client</td></tr><tr><td>Campaign</td><td>Core unit of work sold and managed by Virtus</td></tr><tr><td>Creator</td><td>Individual executing campaign work</td></tr><tr><td>Agency</td><td>Entity managing creators</td></tr><tr><td>Channel</td><td>Social, publisher, newsletter, or media property</td></tr><tr><td>Deliverable</td><td>Required post, article, newsletter, video, etc.</td></tr><tr><td>Metric</td><td>Submitted performance result</td></tr><tr><td>Report</td><td>Client-facing campaign performance summary</td></tr><tr><td>Payment/Payout</td><td>Compensation record for creators/agencies</td></tr></tbody></table></div>
+<h2 id="12-role-specific-workflows">12. Role-Specific Workflows<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-role-specific-workflows" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="virtus-admin">Virtus Admin<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#virtus-admin" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Create campaigns.</li>
+<li>Assign creators/agencies.</li>
+<li>Review metrics.</li>
+<li>Generate reports.</li>
+<li>Manage tenants/users.</li>
+<li>Manage campaign statuses.</li>
+<li>Maintain the separation between company users and creator / publisher / agency users.</li>
+</ul>
+<h3 id="company--ir-client">Company / IR Client<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#company--ir-client" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>View campaign calendar.</li>
+<li>See live/upcoming/completed campaigns.</li>
+<li>View reports.</li>
+<li>Limited managed-service view.</li>
+<li>Does not create campaigns in the current phase.</li>
+<li>Does not directly browse or contact creators, publishers, or agencies through the platform in the current phase.</li>
+</ul>
+<h3 id="individual-creator">Individual Creator<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#individual-creator" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Onboard/apply.</li>
+<li>Add payment/tax/bank information.</li>
+<li>Accept assigned campaigns.</li>
+<li>Submit performance metrics.</li>
+<li>Receive direct payment.</li>
+<li>Does not browse a general marketplace of company campaigns in the current phase.</li>
+</ul>
+<h3 id="ugc--media-agency">UGC / Media Agency<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#ugc--media-agency" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Add agency payment/tax/bank information.</li>
+<li>Create/import/manage creators.</li>
+<li>Accept campaigns on behalf of creator network.</li>
+<li>Submit metrics.</li>
+<li>Receive agency-level payment.</li>
+<li>Pay creators outside the platform.</li>
+<li>View campaign timelines for creators under the agency account.</li>
+</ul>
+<h2 id="13-reporting">13. Reporting<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-reporting" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Reports are created by Virtus admins.</li>
+<li>Reports are based on submitted and verified campaign metrics.</li>
+<li>Reports are delivered to companies.</li>
+<li>Reporting is a core product feature and should be treated as high priority.</li>
+<li>Current state should be documented as:
+<ul>
+<li>Built.</li>
+<li>Partially built.</li>
+<li>Not built.</li>
+<li>Known issues.</li>
+<li>Expected near-term changes.</li>
+</ul>
+</li>
+</ul>
+<h2 id="14-payments">14. Payments<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#14-payments" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Scenario</th><th>Payment Flow</th></tr></thead><tbody><tr><td>Independent creator</td><td>Paid directly through platform</td></tr><tr><td>UGC agency</td><td>Agency paid through platform</td></tr><tr><td>Agency-managed creator</td><td>Paid by agency outside platform</td></tr><tr><td>Company/client</td><td>Pays Virtus outside platform during current phase</td></tr></tbody></table></div>
+<p>Payment-related notes to document:</p>
+<ul>
+<li>Whether Stripe Connect is used.</li>
+<li>Whether QuickBooks or another external billing process is involved for company payments.</li>
+<li>Whether KYC, tax, and bank onboarding are required before payout.</li>
+<li>Whether payout flows are production-ready.</li>
+<li>Whether webhook handling is complete.</li>
+</ul>
+<h2 id="15-current-implementation-status">15. Current Implementation Status<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#15-current-implementation-status" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Area</th><th>Status</th><th>Notes</th></tr></thead><tbody><tr><td>Admin dashboard</td><td></td><td></td></tr><tr><td>Company calendar</td><td></td><td></td></tr><tr><td>Campaign creation</td><td></td><td></td></tr><tr><td>Campaign assignment</td><td></td><td></td></tr><tr><td>Creator onboarding</td><td></td><td></td></tr><tr><td>Agency management</td><td></td><td></td></tr><tr><td>Metrics submission</td><td></td><td></td></tr><tr><td>Metrics review</td><td></td><td></td></tr><tr><td>Report generation</td><td></td><td></td></tr><tr><td>Company report access</td><td></td><td></td></tr><tr><td>Payments/KYC</td><td></td><td></td></tr><tr><td>Deployment</td><td></td><td></td></tr><tr><td>Hidden/commented future marketplace features</td><td></td><td></td></tr></tbody></table></div>
+<h2 id="16-known-risks--open-questions">16. Known Risks / Open Questions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#16-known-risks--open-questions" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Does the current permissions model fully enforce the managed-service structure?</li>
+<li>Can company users see only company-facing information?</li>
+<li>Can creators see only assigned campaigns?</li>
+<li>Can agencies manage only their own creators?</li>
+<li>Are any future marketplace features visible to users unintentionally?</li>
+<li>Are any commented, hidden, or unfinished marketplace artifacts still connected to live navigation, routing, permissions, or APIs?</li>
+<li>Is reporting already implemented or still pending?</li>
+<li>Are payments production-ready?</li>
+<li>Are KYC/tax/bank flows complete?</li>
+<li>Are campaign statuses clearly modeled?</li>
+<li>Are there automated tests?</li>
+<li>Is deployment stable?</li>
+</ul>
+<h2 id="17-technical-commands-and-local-setup">17. Technical Commands and Local Setup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#17-technical-commands-and-local-setup" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This section can include commands if appropriate, but keep it neutral.</p>
+<p>Example:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> install</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> dev</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> build</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pnpm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> lint</span></span></code></pre></figure>
+<p>Include:</p>
+<ul>
+<li>Runtime requirements.</li>
+<li>Package manager.</li>
+<li>Local database requirements.</li>
+<li>Environment variable categories.</li>
+<li>Known setup assumptions.</li>
+</ul>
+<p>Do not include:</p>
+<ul>
+<li>Clone instructions.</li>
+<li>Repository URL.</li>
+<li>Access instructions.</li>
+<li>Credentials.</li>
+</ul>
+<h2 id="18-environment-variable-categories">18. Environment Variable Categories<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#18-environment-variable-categories" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Do not list real values.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Category</th><th>Purpose</th></tr></thead><tbody><tr><td>Database</td><td>App data and CMS persistence</td></tr><tr><td>Auth/session</td><td>Login, sessions, secure cookies</td></tr><tr><td>Payments</td><td>Creator/agency onboarding and payouts</td></tr><tr><td>Email</td><td>Invitations, notifications, report delivery</td></tr><tr><td>Storage</td><td>Media/file uploads</td></tr><tr><td>App URLs</td><td>Local, staging, production routing</td></tr><tr><td>Public client config</td><td>Browser-safe configuration only</td></tr><tr><td>Feature flags</td><td>Hiding or enabling future-phase functionality</td></tr></tbody></table></div>
+<h2 id="19-deployment-overview">19. Deployment Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#19-deployment-overview" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>High-level only:</p>
+<ul>
+<li>Hosting provider.</li>
+<li>Build process.</li>
+<li>Migration process.</li>
+<li>Environment variable categories.</li>
+<li>Preview/staging availability.</li>
+<li>Production release process.</li>
+<li>Rollback approach.</li>
+<li>Current deployment confidence.</li>
+<li>Whether future marketplace features are controlled through feature flags, hidden routes, permissions, or commented code.</li>
+</ul>
+<p>Avoid:</p>
+<ul>
+<li>Account names.</li>
+<li>Credentials.</li>
+<li>Private URLs if not meant to be shared.</li>
+<li>Repository/provider access instructions.</li>
+</ul>
+<h2 id="20-developer-evaluation-checklist">20. Developer Evaluation Checklist<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#20-developer-evaluation-checklist" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The senior developer should be able to answer:</p>
+<ul>
+<li>Do I understand the business model?</li>
+<li>Do I understand why Virtus must remain between companies and creators/agencies?</li>
+<li>Do I understand the role boundaries?</li>
+<li>Do I understand the campaign lifecycle?</li>
+<li>Do I understand the payment flow?</li>
+<li>Do I understand what is admin-driven versus self-serve?</li>
+<li>Do I understand what is already built?</li>
+<li>Do I understand what is unfinished?</li>
+<li>Do I understand which artifacts are future-phase marketplace work and not current product behavior?</li>
+<li>Do I understand the likely technical risks?</li>
+<li>Do I know what I would inspect first if given access?</li>
+<li>Can I estimate how quickly I could ship the next feature?</li>
+</ul>
+<h2 id="21-suggested-first-areas-to-inspect-if-engaged">21. Suggested First Areas to Inspect If Engaged<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-suggested-first-areas-to-inspect-if-engaged" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Keep this conceptual, not access-oriented.</p>
+<ul>
+<li>Tenant and role permissions.</li>
+<li>Campaign lifecycle implementation.</li>
+<li>Admin campaign creation flow.</li>
+<li>Creator/agency acceptance flow.</li>
+<li>Metrics submission and review.</li>
+<li>Report generation.</li>
+<li>Company-facing calendar/report views.</li>
+<li>Payment/KYC flow.</li>
+<li>Deployment/build configuration.</li>
+<li>Automated tests or lack thereof.</li>
+<li>Hidden, commented, or feature-flagged marketplace code.</li>
+<li>Any routes, components, or APIs that suggest company-created campaigns or creator campaign browsing.</li>
+</ul>
+<h2 id="22-immediate-product-priorities">22. Immediate Product Priorities<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-immediate-product-priorities" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Priority</th><th>Area</th><th>Reason</th></tr></thead><tbody><tr><td>P0</td><td>Reporting workflow</td><td>Core company-facing deliverable</td></tr><tr><td>P0</td><td>Role permissions</td><td>Protects Virtus’s managed-service position</td></tr><tr><td>P0</td><td>Hide or isolate future marketplace artifacts</td><td>Prevents users from seeing workflows that are not part of the current model</td></tr><tr><td>P1</td><td>Agency-managed creator flow</td><td>Important for UGC agency model</td></tr><tr><td>P1</td><td>Metrics review/approval</td><td>Required before reports are reliable</td></tr><tr><td>P1</td><td>Payment readiness</td><td>Needed before campaign payouts</td></tr><tr><td>P2</td><td>Future social API integrations</td><td>Later automation phase</td></tr><tr><td>P2</td><td>Future affiliate-style marketplace</td><td>Possible later phase, not yet proven for this market</td></tr></tbody></table></div>
+<h2 id="23-information-needed-before-taking-over">23. Information Needed Before Taking Over<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-information-needed-before-taking-over" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The new developer may eventually need access to systems, but this document should focus only on what they need to understand the project.</p>
+<p>Include:</p>
+<ul>
+<li>Production URL, if shareable.</li>
+<li>Staging/demo URL, if shareable.</li>
+<li>Current tech stack.</li>
+<li>Hosting provider name, if known.</li>
+<li>Database provider name, if known.</li>
+<li>Payment provider name, if known.</li>
+<li>Email provider name, if known.</li>
+<li>Storage provider name, if known.</li>
+<li>Third-party services used.</li>
+<li>Current deployment process at a high level.</li>
+<li>Known operational dependencies.</li>
+<li>Current blockers or unfinished features.</li>
+<li>Who owns product decisions.</li>
+<li>Who can clarify business rules.</li>
+</ul>
+<p>Avoid:</p>
+<ul>
+<li>Repository access.</li>
+<li>Repository permissions.</li>
+<li>Credentials.</li>
+<li>Secrets.</li>
+<li>Admin passwords.</li>
+<li>Production database credentials.</li>
+<li>Anything suggesting covert access to the current developer’s workflow.</li>
+</ul>
+<h2 id="24-security-notes">24. Security Notes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-security-notes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Include:</p>
+<ul>
+<li>Do not commit secrets.</li>
+<li>Document where credentials are stored only at a high level.</li>
+<li>Explain role boundaries clearly.</li>
+<li>Confirm company users cannot access creator/admin workflows.</li>
+<li>Confirm creators cannot see unrelated campaigns.</li>
+<li>Confirm agencies can only manage their own child creators.</li>
+<li>Confirm payment data and tax/KYC data are protected.</li>
+<li>Confirm future marketplace code cannot expose company-to-creator discovery or contact paths in the current phase.</li>
+</ul>
+<h2 id="25-suggested-first-day-developer-checklist">25. Suggested First-Day Developer Checklist<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-suggested-first-day-developer-checklist" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This is the practical “hit the ground running” section.</p>
+<ol>
+<li>Review the product summary and operating model.</li>
+<li>Confirm the managed-service role boundaries.</li>
+<li>Confirm which user types exist and what each can do.</li>
+<li>Identify current-phase workflows versus future marketplace artifacts.</li>
+<li>Review the campaign lifecycle.</li>
+<li>Review admin campaign creation.</li>
+<li>Review creator/agency campaign acceptance.</li>
+<li>Review metrics submission and approval.</li>
+<li>Review reporting implementation status.</li>
+<li>Review payment/KYC implementation status.</li>
+<li>Review how hidden/commented future features are isolated.</li>
+<li>Run available quality checks once access is available.</li>
+<li>Identify blockers to shipping the next feature.</li>
+</ol>
+<h2 id="26-glossary">26. Glossary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-glossary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td>Virtus Admin</td><td>Internal Virtus operator managing campaigns</td></tr><tr><td>Company</td><td>Public company or IR client</td></tr><tr><td>Creator</td><td>Individual influencer/publisher/content distributor</td></tr><tr><td>UGC Agency</td><td>Agency managing multiple creators</td></tr><tr><td>Agency-Managed Creator</td><td>Creator operating under an agency relationship</td></tr><tr><td>Campaign</td><td>Paid media/IR campaign managed through Virtus</td></tr><tr><td>Deliverable</td><td>Required post, article, newsletter, video, etc.</td></tr><tr><td>Metric</td><td>Manually entered performance data</td></tr><tr><td>Report</td><td>Company-facing performance summary</td></tr><tr><td>Tenant</td><td>Account/workspace entity in the platform</td></tr><tr><td>Managed Service</td><td>Current operating model where Virtus controls campaign operations</td></tr><tr><td>Marketplace / Affiliate-Style Flow</td><td>Possible future model where companies post campaigns and creators browse/accept them</td></tr><tr><td>Hidden Artifact</td><td>Code or UI for future-phase functionality that is disabled, commented out, feature-flagged, or otherwise not exposed to users</td></tr></tbody></table></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-5" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#virtus-media-platform-technical-overview-outline" data-for="virtus-media-platform-technical-overview-outline">Virtus Media Platform Technical Overview Outline</a></li><li class="depth-1"><a href="#1-purpose" data-for="1-purpose">1. Purpose</a></li><li class="depth-1"><a href="#2-product-summary" data-for="2-product-summary">2. Product Summary</a></li><li class="depth-1"><a href="#3-operating-model" data-for="3-operating-model">3. Operating Model</a></li><li class="depth-2"><a href="#what-this-platform-is" data-for="what-this-platform-is">What This Platform Is</a></li><li class="depth-2"><a href="#what-this-platform-is-not-in-the-current-phase" data-for="what-this-platform-is-not-in-the-current-phase">What This Platform Is Not In The Current Phase</a></li><li class="depth-1"><a href="#4-current-managed-service-rationale" data-for="4-current-managed-service-rationale">4. Current Managed-Service Rationale</a></li><li class="depth-1"><a href="#5-future-marketplace--affiliate-style-artifacts" data-for="5-future-marketplace--affiliate-style-artifacts">5. Future Marketplace / Affiliate-Style Artifacts</a></li><li class="depth-1"><a href="#6-future-marketplace-business-hypothesis" data-for="6-future-marketplace-business-hypothesis">6. Future Marketplace Business Hypothesis</a></li><li class="depth-1"><a href="#7-tenant--user-types" data-for="7-tenant--user-types">7. Tenant / User Types</a></li><li class="depth-1"><a href="#8-core-workflow" data-for="8-core-workflow">8. Core Workflow</a></li><li class="depth-1"><a href="#9-current-phase-constraints" data-for="9-current-phase-constraints">9. Current Phase Constraints</a></li><li class="depth-1"><a href="#10-architecture-overview" data-for="10-architecture-overview">10. Architecture Overview</a></li><li class="depth-1"><a href="#11-data-model-summary" data-for="11-data-model-summary">11. Data Model Summary</a></li><li class="depth-1"><a href="#12-role-specific-workflows" data-for="12-role-specific-workflows">12. Role-Specific Workflows</a></li><li class="depth-2"><a href="#virtus-admin" data-for="virtus-admin">Virtus Admin</a></li><li class="depth-2"><a href="#company--ir-client" data-for="company--ir-client">Company / IR Client</a></li><li class="depth-2"><a href="#individual-creator" data-for="individual-creator">Individual Creator</a></li><li class="depth-2"><a href="#ugc--media-agency" data-for="ugc--media-agency">UGC / Media Agency</a></li><li class="depth-1"><a href="#13-reporting" data-for="13-reporting">13. Reporting</a></li><li class="depth-1"><a href="#14-payments" data-for="14-payments">14. Payments</a></li><li class="depth-1"><a href="#15-current-implementation-status" data-for="15-current-implementation-status">15. Current Implementation Status</a></li><li class="depth-1"><a href="#16-known-risks--open-questions" data-for="16-known-risks--open-questions">16. Known Risks / Open Questions</a></li><li class="depth-1"><a href="#17-technical-commands-and-local-setup" data-for="17-technical-commands-and-local-setup">17. Technical Commands and Local Setup</a></li><li class="depth-1"><a href="#18-environment-variable-categories" data-for="18-environment-variable-categories">18. Environment Variable Categories</a></li><li class="depth-1"><a href="#19-deployment-overview" data-for="19-deployment-overview">19. Deployment Overview</a></li><li class="depth-1"><a href="#20-developer-evaluation-checklist" data-for="20-developer-evaluation-checklist">20. Developer Evaluation Checklist</a></li><li class="depth-1"><a href="#21-suggested-first-areas-to-inspect-if-engaged" data-for="21-suggested-first-areas-to-inspect-if-engaged">21. Suggested First Areas to Inspect If Engaged</a></li><li class="depth-1"><a href="#22-immediate-product-priorities" data-for="22-immediate-product-priorities">22. Immediate Product Priorities</a></li><li class="depth-1"><a href="#23-information-needed-before-taking-over" data-for="23-information-needed-before-taking-over">23. Information Needed Before Taking Over</a></li><li class="depth-1"><a href="#24-security-notes" data-for="24-security-notes">24. Security Notes</a></li><li class="depth-1"><a href="#25-suggested-first-day-developer-checklist" data-for="25-suggested-first-day-developer-checklist">25. Suggested First-Day Developer Checklist</a></li><li class="depth-1"><a href="#26-glossary" data-for="26-glossary">26. Glossary</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://hamiltonrevenue.com">Hamilton Revenue</a></li><li><a href="https://sendswell.com">SendSwell</a></li></ul></footer></div></div></body><script type="application/javascript">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module">function f(i,e){if(!i)return;function r(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function t(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}i?.addEventListener("click",r),window.addCleanup(()=>i?.removeEventListener("click",r)),document.addEventListener("keydown",t),window.addCleanup(()=>document.removeEventListener("keydown",t))}function y(i){for(;i.firstChild;)i.removeChild(i.firstChild)}var h=class{constructor(e,r){this.container=e;this.content=r;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),r=this.onMouseMove.bind(this),t=this.onMouseUp.bind(this),o=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",r),document.addEventListener("mouseup",t),window.addEventListener("resize",o),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",r),()=>document.removeEventListener("mouseup",t),()=>window.removeEventListener("resize",o))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let r=this.createButton("+",()=>this.zoom(.1)),t=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(t),e.appendChild(o),e.appendChild(r),this.container.appendChild(e)}createButton(e,r){let t=document.createElement("button");return t.textContent=e,t.className="mermaid-control-button",t.addEventListener("click",r),window.addCleanup(()=>t.removeEventListener("click",r)),t}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}zoom(e){let r=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),t=this.content.getBoundingClientRect(),o=t.width/2,n=t.height/2,c=r-this.scale;this.currentPan.x-=o*c,this.currentPan.y-=n*c,this.scale=r,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){this.scale=1;let e=this.content.querySelector("svg");this.currentPan={x:e.getBoundingClientRect().width/2,y:e.getBoundingClientRect().height/2},this.updateTransform()}},C=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],E;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;E||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let r=E.default,t=new WeakMap;for(let n of e)t.set(n,n.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let a=t.get(s);a&&(s.innerHTML=a)}let n=C.reduce((s,a)=>(s[a]=window.getComputedStyle(document.documentElement).getPropertyValue(a),s),{}),c=document.documentElement.getAttribute("saved-theme")==="dark";r.initialize({startOnLoad:!1,securityLevel:"loose",theme:c?"dark":"base",themeVariables:{fontFamily:n["--codeFont"],primaryColor:n["--light"],primaryTextColor:n["--darkgray"],primaryBorderColor:n["--tertiary"],lineColor:n["--darkgray"],secondaryColor:n["--secondary"],tertiaryColor:n["--tertiary"],clusterBkg:n["--light"],edgeLabelBackground:n["--highlight"]}}),await r.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let n=0;n<e.length;n++){let v=function(){let g=l.querySelector("#mermaid-space"),m=l.querySelector(".mermaid-content");if(!m)return;y(m);let w=c.querySelector("svg").cloneNode(!0);m.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new h(g,m)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},c=e[n],s=c.parentElement,a=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(a),L=a.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),f(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script src="./postscript.js" type="module"></script></html>

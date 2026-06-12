@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+      <title>NealOS</title>
+      <link>https://nealos.hamiltonrevenue.com</link>
+      <description>Last 10 notes on NealOS</description>
+      <generator>Quartz -- quartz.jzhao.xyz</generator>
+      <item>
+    <title>B2B_ACCOUNT_SETUP_MANUAL</title>
+    <link>https://nealos.hamiltonrevenue.com/B2B_ACCOUNT_SETUP_MANUAL</link>
+    <guid>https://nealos.hamiltonrevenue.com/B2B_ACCOUNT_SETUP_MANUAL</guid>
+    <description><![CDATA[ B2B Client Account Setup (Manual Process) Last Updated: 2026-04-27 This document describes how to manually set up a SendSwell account for a B2B client when using invoice-based billing instead of self-service checkout. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 17:21:34 GMT</pubDate>
+  </item><item>
+    <title>TECHNICAL_OVERVIEW_OUTLINE</title>
+    <link>https://nealos.hamiltonrevenue.com/TECHNICAL_OVERVIEW_OUTLINE</link>
+    <guid>https://nealos.hamiltonrevenue.com/TECHNICAL_OVERVIEW_OUTLINE</guid>
+    <description><![CDATA[ Virtus Media Platform Technical Overview Outline 1. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 17:21:34 GMT</pubDate>
+  </item><item>
+    <title>VIRTUS_MEDIA_TECHNICAL_OVERVIEW</title>
+    <link>https://nealos.hamiltonrevenue.com/VIRTUS_MEDIA_TECHNICAL_OVERVIEW</link>
+    <guid>https://nealos.hamiltonrevenue.com/VIRTUS_MEDIA_TECHNICAL_OVERVIEW</guid>
+    <description><![CDATA[ Virtus Media Platform — Technical Overview Audience: Senior developer evaluating project takeover Scope: Product context, architecture, workflows, risks, and first-steps checklist Not included: Credentials, secrets, private access details, admin passwords, or clone instructions 1. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 17:21:34 GMT</pubDate>
+  </item><item>
+    <title>Welcome</title>
+    <link>https://nealos.hamiltonrevenue.com/Welcome</link>
+    <guid>https://nealos.hamiltonrevenue.com/Welcome</guid>
+    <description><![CDATA[ This is your new vault. Make a note of something, create a link, or try the Importer! When you’re ready, delete this note and make the vault your own. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 17:21:34 GMT</pubDate>
+  </item><item>
+    <title>NealOS</title>
+    <link>https://nealos.hamiltonrevenue.com/</link>
+    <guid>https://nealos.hamiltonrevenue.com/</guid>
+    <description><![CDATA[ Operating system for Neal's life, businesses, projects, and relationships. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 17:21:34 GMT</pubDate>
+  </item><item>
+    <title>Gene Massey</title>
+    <link>https://nealos.hamiltonrevenue.com/Gene-Massey</link>
+    <guid>https://nealos.hamiltonrevenue.com/Gene-Massey</guid>
+    <description><![CDATA[ Gene Massey — Relationship Intelligence Contact Email: gene@mediashares.com Phone: 310-871-3668 (US mobile &amp; WhatsApp) LinkedIn: www.linkedin.com/in/genemassey Location: 1334 Westwood Blvd. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 06:00:00 GMT</pubDate>
+  </item><item>
+    <title>Hamilton Revenue</title>
+    <link>https://nealos.hamiltonrevenue.com/Hamilton-Revenue</link>
+    <guid>https://nealos.hamiltonrevenue.com/Hamilton-Revenue</guid>
+    <description><![CDATA[ Hamilton Revenue — Business Intelligence Overview Neal’s company. Parent organization for SendSwell and other ventures. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 06:00:00 GMT</pubDate>
+  </item><item>
+    <title>MediaShares</title>
+    <link>https://nealos.hamiltonrevenue.com/MediaShares</link>
+    <guid>https://nealos.hamiltonrevenue.com/MediaShares</guid>
+    <description><![CDATA[ MediaShares — Organization Intelligence Overview Client organization, operated by Gene Massey. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 06:00:00 GMT</pubDate>
+  </item><item>
+    <title>SendSwell</title>
+    <link>https://nealos.hamiltonrevenue.com/SendSwell</link>
+    <guid>https://nealos.hamiltonrevenue.com/SendSwell</guid>
+    <description><![CDATA[ SendSwell — Business Intelligence Overview SaaS/marketing platform operated by Hamilton Revenue. ]]></description>
+    <pubDate>Fri, 12 Jun 2026 06:00:00 GMT</pubDate>
+  </item>
+    </channel>
+  </rss>
